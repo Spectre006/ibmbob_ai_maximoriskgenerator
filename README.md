@@ -8,8 +8,6 @@ An AI-enabled Risk Assessment Generator that evaluates IBM Maximo work orders an
 
 ## 🎯 Use Case
 
-![Video](https://github.com/Spectre006/ibmbob_ai_maximoriskgenerator/blob/main/demo/Demo_AI%20Powered%20Risk%20Assesement%20Generator_IBM%20BOB.mp4)
-
 Maximo technicians often lack the time or expertise to prepare JHA reports before starting work, which can create serious safety risks. This tool automatically generates comprehensive, multilingual JHA reports from any Maximo work order using IBM Watsonx.ai — reducing preparation time from hours to seconds.
 
 ---
