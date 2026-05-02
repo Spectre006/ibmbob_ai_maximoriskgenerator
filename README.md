@@ -168,7 +168,7 @@ Risk levels returned by the AI in any language variant (e.g. *Élevé*, *उच�
 ## 📁 Project Structure
 
 ```
-maximo_riskassessement_generator/
+ibmbob_ai_maximoriskgenerator/
 ├── app.py                      # FastAPI application entry point
 ├── requirements.txt            # Python dependencies
 ├── .env.example                # Environment variable template
