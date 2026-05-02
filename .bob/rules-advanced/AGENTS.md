@@ -15,6 +15,7 @@ This file provides advanced coding guidance for the Maximo Risk Assessment Gener
 
 ## Code Structure (Non-Obvious Patterns)
 When implementing, follow this modular structure:
+```
 services/
   ├── maximo_service.py    # Maximo API client with retry logic
   ├── ai_service.py         # Watsonx.ai integration with prompt templates
