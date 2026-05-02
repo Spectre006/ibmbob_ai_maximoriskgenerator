@@ -44,7 +44,6 @@ Maximo technicians often lack the time or expertise to prepare JHA reports befor
 
 ## 🏗️ Architecture
 
-![Architecture Diagram](architecture_diagram.svg)
 
 ```
 Browser (IBM Carbon UI)
@@ -122,7 +121,7 @@ http://localhost:8000
 
 ## 📖 Usage
 
-![User Flow Diagram](user_flow_diagram.svg)
+![User Journey](demo/user_flow_diagram.svg)
 
 ### Generating a Report
 
