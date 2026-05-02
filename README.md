@@ -44,6 +44,7 @@ Maximo technicians often lack the time or expertise to prepare JHA reports befor
 
 ## 🏗️ Architecture
 
+![Architecture](demo/architecture_diagram.svg)
 
 ```
 Browser (IBM Carbon UI)
