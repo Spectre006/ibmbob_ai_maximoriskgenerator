@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="{{ language }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JHA Report - {{ report.work_order_id if report.work_order_id is defined else report.get('work_order_id','') }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Latin Extended (French) is covered by system fonts; load Noto Sans Devanagari for Hindi -->
+    {% if language == 'hi' %}
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+    {% endif %}
+    <style>
+        :root {
+            --blue-60:   #0f62fe;
+            --blue-10:   #edf5ff;
+            --red-60:    #da1e28;
+            --red-10:    #fff1f1;
+            --yellow-30: #f1c21b;
+            --yellow-10: #fcf4d6;
+            --green-50:  #24a148;
+            --green-10:  #defbe6;
+            --gray-90:   #161616;
+            --gray-70:   #393939;
+            --gray-30:   #c6c6c6;
+            --gray-10:   #f4f4f4;
+        }
+
+        body {
+            font-family: {% if language == 'hi' %}'Noto Sans Devanagari', {% endif %}'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--gray-10);
+            padding: 2rem 0;
+            color: var(--gray-90);
+        }
+
+        .report-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 3rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,.12);
+            border-radius: 4px;
+        }
+
+        /* ── Header ── */
+        .report-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 3px solid var(--blue-60);
+        }
+        .report-title   { color: var(--blue-60); font-size: 1.9rem; font-weight: 700; margin-bottom: .4rem; }
+        .report-subtitle{ color: var(--gray-70); font-size: 1.1rem; margin-bottom: .25rem; }
+        .report-company { color: var(--gray-70); font-size: .9rem; }
+
+        /* ── Meta info box ── */
+        .report-info {
+            background: var(--gray-10);
+            border: 1px solid var(--gray-30);
+            border-radius: 4px;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+        }
+        .report-info table { width: 100%; }
+        .report-info td { padding: .4rem .5rem; font-size: .9rem; }
+        .report-info td:first-child { font-weight: 600; width: 160px; color: var(--gray-70); }
+
+        /* ── Section headings ── */
+        .section-heading {
+            color: var(--blue-60);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 2rem 0 .75rem;
+            padding-bottom: .4rem;
+            border-bottom: 2px solid var(--blue-60);
+        }
+
+        /* ── Work-order table ── */
+        .wo-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+        .wo-table thead tr { background: var(--blue-60); color: #fff; }
+        .wo-table thead th { padding: .6rem 1rem; font-size: .85rem; font-weight: 600; text-align: left; }
+        .wo-table tbody tr:nth-child(odd)  { background: #fff; }
+        .wo-table tbody tr:nth-child(even) { background: var(--gray-10); }
+        .wo-table tbody td { padding: .55rem 1rem; font-size: .9rem; border: 1px solid var(--gray-30); }
+        .wo-table tbody td.td-label { font-weight: 600; color: var(--gray-70); width: 180px; }
+
+        /* ── Hazard cards ── */
+        .hazard-card {
+            border-left: 4px solid var(--blue-60);
+            background: var(--gray-10);
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+            border-radius: 0 4px 4px 0;
+        }
+        .hazard-card.risk-high   { border-left-color: var(--red-60);    background: var(--red-10); }
+        .hazard-card.risk-medium { border-left-color: var(--yellow-30); background: var(--yellow-10); }
+        .hazard-card.risk-low    { border-left-color: var(--green-50);  background: var(--green-10); }
+
+        .hazard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: .75rem; }
+        .hazard-title  { font-size: 1rem; font-weight: 700; }
+
+        .risk-badge { padding: .2rem .7rem; border-radius: 12px; font-size: .8rem; font-weight: 700; }
+        .risk-badge.high   { background: var(--red-60);    color: #fff; }
+        .risk-badge.medium { background: var(--yellow-30); color: #5a3e00; }
+        .risk-badge.low    { background: var(--green-50);  color: #fff; }
+
+        .hazard-detail { margin-bottom: .6rem; font-size: .9rem; line-height: 1.6; }
+        .hazard-detail .lbl { font-weight: 600; display: inline-block; min-width: 160px; }
+
+        /* ── Emergency contacts ── */
+        .emergency-contacts {
+            background: var(--red-10);
+            border: 1.5px solid var(--red-60);
+            padding: 1.25rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+        .emergency-contacts table { width: 100%; }
+        .emergency-contacts td { padding: .4rem .5rem; font-size: .9rem; }
+        .emergency-contacts td:first-child { font-weight: 600; width: 200px; color: var(--gray-70); }
+
+        /* ── Disclaimer ── */
+        .disclaimer {
+            margin-top: 2rem;
+            padding: .9rem 1rem;
+            background: var(--gray-10);
+            border-left: 4px solid var(--gray-30);
+            font-size: .82rem;
+            color: #525252;
+            font-style: italic;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* ── Print button ── */
+        .print-btn {
+            position: fixed;
+            top: 20px; right: 20px;
+            z-index: 1000;
+            background: var(--blue-60);
+            color: #fff;
+            border: none;
+            padding: .5rem 1rem;
+            border-radius: 4px;
+            font-size: .9rem;
+            cursor: pointer;
+        }
+        .print-btn:hover { background: #0043ce; }
+
+        /* ── Status chip ── */
+        .status-chip {
+            display: inline-block;
+            background: var(--green-10);
+            color: var(--green-50);
+            border: 1px solid var(--green-50);
+            border-radius: 12px;
+            padding: .1rem .6rem;
+            font-size: .8rem;
+            font-weight: 600;
+        }
+
+        @media print {
+            body { background: #fff; padding: 0; }
+            .report-container { box-shadow: none; padding: 1rem; }
+            .print-btn { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">
+    <i class="bi bi-printer"></i> {{ labels.get('print', 'Print') if labels is mapping else 'Print' }}
+</button>
+
+<div class="report-container">
+
+    <!-- ── Header ── -->
+    <div class="report-header">
+        <div class="report-title">{{ labels.report_title }}</div>
+        <div class="report-subtitle">{{ labels.report_subtitle }}</div>
+        <div class="report-company">IBM Maximo</div>
+    </div>
+
+    <!-- ── Report Meta ── -->
+    <div class="report-info">
+        <table>
+            <tr>
+                <td>{{ labels.report_id }}:</td>
+                <td>{% if report is mapping %}{{ report.get('report_id','—') }}{% else %}{{ report.report_id }}{% endif %}</td>
+            </tr>
+            <tr>
+                <td>{{ labels.work_order }}:</td>
+                <td>{% if report is mapping %}{{ report.get('work_order_id','—') }}{% else %}{{ report.work_order_id }}{% endif %}</td>
+            </tr>
+            <tr>
+                <td>{{ labels.generated }}:</td>
+                <td>
+                    {% if report is mapping %}
+                        {{ report.get('created_at','') }}
+                    {% else %}
+                        {{ report.created_at.strftime('%Y-%m-%d %H:%M:%S UTC') }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ labels.wo_status }}:</td>
+                <td>
+                    {% set wo = report.get('work_order', {}) if report is mapping else report.work_order %}
+                    {% set wo_status = wo.get('status', 'N/A') if wo is mapping else 'N/A' %}
+                    <span class="status-chip">{{ wo_status }}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ── Work Order Details ── -->
+    <div class="section-heading">{{ labels.work_order_details }}</div>
+    {% set wo = report.get('work_order', {}) if report is mapping else report.work_order %}
+    <table class="wo-table">
+        <thead>
+            <tr>
+                <th>{{ labels.field }}</th>
+                <th>{{ labels.value }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td class="td-label">{{ labels.work_order_number }}</td><td>{{ (wo.get('id','N/A') if wo is mapping else wo.id) or 'N/A' }}</td></tr>
+            <tr><td class="td-label">{{ labels.description }}</td><td>{{ (wo.get('description','N/A') if wo is mapping else wo.description) or 'N/A' }}</td></tr>
+            <tr><td class="td-label">{{ labels.location }}</td><td>{{ (wo.get('location','N/A') if wo is mapping else wo.location) or 'N/A' }}</td></tr>
+            <tr><td class="td-label">{{ labels.equipment }}</td><td>{{ (wo.get('equipment','N/A') if wo is mapping else wo.equipment) or 'N/A' }}</td></tr>
+            <tr><td class="td-label">{{ labels.priority }}</td><td>{{ (wo.get('priority','N/A') if wo is mapping else wo.priority) or 'N/A' }}</td></tr>
+            <tr><td class="td-label">{{ labels.status }}</td><td>{{ (wo.get('status','N/A') if wo is mapping else wo.status) or 'N/A' }}</td></tr>
+            <tr><td class="td-label">{{ labels.assigned_to }}</td><td>{{ (wo.get('assigned_to','N/A') if wo is mapping else wo.assigned_to) or 'N/A' }}</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ── Hazards ── -->
+    <div class="section-heading">{{ labels.identified_hazards }}</div>
+
+    {% set hazards = report.get('hazards', []) if report is mapping else report.hazards %}
+    {% if hazards %}
+        {% for hazard in hazards %}
+            {% set rl_val = hazard.get('risk_level','Medium') if hazard is mapping else hazard.risk_level.value %}
+            {% set rl_lower = rl_val.lower() %}
+            <div class="hazard-card risk-{{ rl_lower }}">
+                <div class="hazard-header">
+                    <div class="hazard-title">
+                        {{ labels.hazard }} #{{ hazard.get('id', loop.index) if hazard is mapping else hazard.id }}
+                    </div>
+                    <span class="risk-badge {{ rl_lower }}">{{ rl_val }}</span>
+                </div>
+                <div class="hazard-detail">
+                    <span class="lbl">{{ labels.description }}:</span>
+                    {{ hazard.get('description','') if hazard is mapping else hazard.description }}
+                </div>
+                <div class="hazard-detail">
+                    <span class="lbl">{{ labels.controls }}:</span>
+                    {% set ctrl_list = hazard.get('controls',[]) if hazard is mapping else hazard.controls %}
+                    {{ ctrl_list | join(', ') if ctrl_list else 'N/A' }}
+                </div>
+                <div class="hazard-detail">
+                    <span class="lbl">{{ labels.required_ppe }}:</span>
+                    {% set ppe_list = hazard.get('ppe',[]) if hazard is mapping else hazard.ppe %}
+                    {{ ppe_list | join(', ') if ppe_list else 'Standard PPE' }}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>N/A</p>
+    {% endif %}
+
+    <!-- ── Emergency Contacts ── -->
+    {% set ec = report.get('emergency_contacts') if report is mapping else report.emergency_contacts %}
+    {% if ec %}
+    <div class="section-heading">{{ labels.emergency_contacts }}</div>
+    <div class="emergency-contacts">
+        <table>
+            {% set sup  = ec.get('supervisor')      if ec is mapping else ec.supervisor %}
+            {% set saf  = ec.get('safety_officer')  if ec is mapping else ec.safety_officer %}
+            {% set emer = ec.get('emergency')        if ec is mapping else ec.emergency %}
+            {% if sup  %}<tr><td>{{ labels.supervisor }}:</td><td>{{ sup }}</td></tr>{% endif %}
+            {% if saf  %}<tr><td>{{ labels.safety_officer }}:</td><td>{{ saf }}</td></tr>{% endif %}
+            {% if emer %}<tr><td>{{ labels.emergency_services }}:</td><td>{{ emer }}</td></tr>{% endif %}
+        </table>
+    </div>
+    {% endif %}
+
+    <!-- ── Additional Notes ── -->
+    {% set notes = report.get('additional_notes') if report is mapping else report.additional_notes %}
+    {% if notes %}
+    <div class="section-heading">{{ labels.additional_notes }}</div>
+    <p style="font-size:.9rem;line-height:1.7">{{ notes }}</p>
+    {% endif %}
+
+    <!-- ── Disclaimer ── -->
+    <div class="disclaimer">
+        {% if language == 'hi' %}
+            यह जॉब हैज़र्ड एनालिसिस रिपोर्ट AI-संचालित जोखिम मूल्यांकन का उपयोग करके तैयार की गई थी।
+            इसे लागू करने से पहले एक योग्य सुरक्षा पेशेवर द्वारा समीक्षा की जानी चाहिए।
+        {% elif language == 'fr' %}
+            Ce rapport d'analyse des risques au travail a été généré à l'aide d'une évaluation des risques basée sur l'IA.
+            Il doit être examiné par un professionnel de la sécurité qualifié avant sa mise en œuvre.
+        {% else %}
+            This Job Hazard Analysis report was generated using AI-powered risk assessment.
+            It should be reviewed by a qualified safety professional before implementation.
+            Always follow your organization's safety procedures and regulations.
+        {% endif %}
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

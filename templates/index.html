@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+
+    <!-- ── Top Header ── -->
+    <header class="app-header">
+        <div class="header-left">
+            <button class="hamburger" id="sidebarToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+            <a class="header-brand" href="#">
+                <img src="/static/logo.jpg" alt="Logo" class="header-logo">
+                <div class="header-divider"></div>
+                <span class="header-product">Maximo Risk Assessment Generator</span>
+            </a>
+        </div>
+        <div class="header-right">
+            <span class="header-tag">AI-Powered</span>
+            <button class="header-icon-btn" title="Help"><i class="bi bi-question-circle"></i></button>
+            <button class="header-icon-btn" title="Notifications"><i class="bi bi-bell"></i></button>
+            <button class="header-icon-btn header-avatar" title="User">
+                <i class="bi bi-person"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="app-layout">
+
+        <!-- ── Left Sidebar ── -->
+        <nav class="sidebar" id="sidebar">
+            <ul class="sidebar-nav">
+
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link active" data-view="generate" id="navGenerate">
+                        <span class="sidebar-icon"><i class="bi bi-file-earmark-plus"></i></span>
+                        <span class="sidebar-label">Generate Report</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-view="history" id="navHistory">
+                        <span class="sidebar-icon"><i class="bi bi-clock-history"></i></span>
+                        <span class="sidebar-label">View Previous Reports</span>
+                        <span class="sidebar-count" id="reportCountBadge" style="display:none">0</span>
+                    </a>
+                </li>
+
+            </ul>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-version">v1.0.0 · IBM BoB Hackathon</div>
+                <div class="sidebar-version">Developer - Prashant Sharma</div>
+                <div class="sidebar-version">Team - Spectre</div>
+            </div>
+        </nav>
+
+        <!-- ── Main Content ── -->
+        <main class="main-content" id="mainContent">
+
+            <!-- ═══ Generate Panel ═══ -->
+            <div class="view-panel" id="panelGenerate">
+
+                <!-- Page header bar -->
+                <div class="page-header">
+                    <div class="page-header-text">
+                        <h1 class="page-title">Generate Job Hazard Analysis Report</h1>
+                        <p class="page-subtitle">Complete Risk Assessment of Work Order using AI-powered Job Hazard Analysis report.</p>
+                    </div>
+                </div>
+
+                <div class="page-body">
+
+                    <!-- Input card -->
+                    <div class="cds-tile">
+                        <div class="cds-tile-header">
+                            <i class="bi bi-cpu tile-header-icon"></i>
+                            <span>New Report</span>
+                        </div>
+                        <div class="cds-tile-body">
+                            <form id="jhaForm" novalidate>
+                                <div class="row g-3 align-items-end justify-content-start">
+                                    <div class="col-12 col-md-5">
+                                        <div class="cds-form-group">
+                                            <label class="cds-label" for="workOrderId">Work Order Number</label>
+                                            <p class="cds-helper">Enter the Maximo work order number (WONUM)</p>
+                                            <div class="cds-input-wrap">
+                                                <i class="bi bi-hash cds-input-icon"></i>
+                                                <input
+                                                    type="text"
+                                                    id="workOrderId"
+                                                    class="cds-input"
+                                                    placeholder="e.g. 6455"
+                                                    autocomplete="off"
+                                                    required
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-3">
+                                        <div class="cds-form-group">
+                                            <label class="cds-label" for="reportLanguage">Language</label>
+                                            <p class="cds-helper">Report generation language</p>
+                                            <div class="cds-input-wrap">
+                                                <i class="bi bi-translate cds-input-icon"></i>
+                                                <select id="reportLanguage" class="cds-input">
+                                                    <option value="en" selected>English</option>
+                                                    <option value="fr">French</option>
+                                                    <option value="hi">Hindi</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="cds-btn cds-btn-primary" id="generateBtn">
+                                    <span id="btnText"><i class="bi bi-cpu me-2"></i>Generate JHA Report</span>
+                                    <span id="btnSpinner" class="d-none">
+                                        <span class="cds-spinner"></span>Generating…
+                                    </span>
+                                </button>
+                            </form>
+
+                            <!-- Progress -->
+                            <div id="progressContainer" class="cds-progress d-none">
+                                <div class="cds-progress-bar-track">
+                                    <div id="progressBar" class="cds-progress-bar" style="width:0%"></div>
+                                </div>
+                                <p id="progressStatus" class="cds-progress-label">Initializing…</p>
+                            </div>
+
+                            <div id="alertContainer"></div>
+                        </div>
+                    </div>
+
+                    <!-- Result card (hidden until report generated) -->
+                    <div id="resultContainer" class="cds-tile d-none">
+                        <div class="cds-tile-header result-header">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-check-circle-fill" style="color:#24a148"></i>
+                                <span>Generated Report</span>
+                            </div>
+                            <div class="result-btns">
+                                <button class="cds-btn cds-btn-ghost" id="viewReportBtn">
+                                    <i class="bi bi-eye me-1"></i>View PDF
+                                </button>
+                                <button class="cds-btn cds-btn-primary" id="downloadPdfBtn">
+                                    <i class="bi bi-download me-1"></i>Download PDF
+                                </button>
+                            </div>
+                        </div>
+                        <div class="cds-tile-body" id="reportContent"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ═══ History Panel ═══ -->
+            <div class="view-panel d-none" id="panelHistory">
+
+                <div class="page-header">
+                    <div class="page-header-text">
+                        <h1 class="page-title">Previous Reports</h1>
+                        <p class="page-subtitle">Browse, view, and download all previously generated JHA reports.</p>
+                    </div>
+                    <div class="page-header-actions">
+                        <div class="cds-search-wrap">
+                            <i class="bi bi-search cds-search-icon"></i>
+                            <input type="text" id="searchHistory" class="cds-search-input" placeholder="Search by Work Order, Report ID…">
+                        </div>
+                        <button class="cds-btn cds-btn-ghost cds-btn-sm" id="refreshHistoryBtn">
+                            <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div class="page-body">
+                    <div class="cds-tile p-0">
+                        <div id="historyContainer">
+                            <div class="empty-state">
+                                <i class="bi bi-inbox empty-icon"></i>
+                                <p class="empty-title">No reports found</p>
+                                <p class="empty-desc">Generated reports will appear here.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ── PDF Preview Modal ── -->
+    <div class="modal fade" id="reportPreviewModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content cds-modal">
+                <div class="cds-modal-header">
+                    <span><i class="bi bi-file-earmark-pdf me-2"></i>Report Preview</span>
+                    <div class="d-flex gap-2 align-items-center">
+                        <button class="cds-btn cds-btn-primary cds-btn-sm" id="modalDownloadPdfBtn">
+                            <i class="bi bi-download me-1"></i>Download PDF
+                        </button>
+                        <button type="button" class="cds-icon-btn" data-bs-dismiss="modal">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="cds-modal-body">
+                    <iframe id="reportPreviewFrame" style="width:100%;height:76vh;border:none;border-radius:4px;background:#fff;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

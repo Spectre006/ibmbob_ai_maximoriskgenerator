@@ -1,0 +1,45 @@
+# Core Dependencies
+setuptools<82
+
+# Web Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+jinja2==3.1.2
+
+# IBM Services
+#ibm-watson==7.0.1
+#ibm-cloud-sdk-core==3.18.2
+ibm-watson>=8.0.0
+ibm-cloud-sdk-core>=3.20.0
+cloudant==2.15.0
+
+# HTTP Client
+requests==2.31.0
+httpx==0.25.1
+
+# Environment & Configuration
+python-dotenv==1.0.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# PDF Generation
+reportlab==4.0.7
+weasyprint==60.1
+
+# Word Document Generation
+python-docx==1.1.0
+
+# Utilities
+python-dateutil==2.8.2
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+httpx==0.25.1  # For testing async endpoints
+
+# Development
+black==23.11.0
+flake8==6.1.0
+mypy==1.7.1

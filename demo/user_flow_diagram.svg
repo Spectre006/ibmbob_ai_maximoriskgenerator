@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" width="1000" height="620" font-family="'Segoe UI', Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="1000" height="620" fill="#f4f4f4"/>
+
+  <!-- Title -->
+  <text x="500" y="38" text-anchor="middle" font-size="20" font-weight="700" fill="#0f62fe">How It Works</text>
+  <text x="500" y="60" text-anchor="middle" font-size="12" fill="#525252">Maximo Risk Assessment Generator — User Journey</text>
+  <line x1="60" y1="72" x2="940" y2="72" stroke="#0f62fe" stroke-width="2"/>
+
+  <!-- ═══════════════════════════════════════
+       FLOW A — GENERATE REPORT
+  ═══════════════════════════════════════ -->
+
+  <!-- Flow A Label -->
+  <rect x="60" y="84" width="880" height="28" rx="14" fill="#0f62fe"/>
+  <text x="500" y="103" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff" letter-spacing="1">GENERATE A SAFETY REPORT</text>
+
+  <!-- ── Step 1 ── -->
+  <rect x="60" y="128" width="155" height="130" rx="12" fill="#ffffff" stroke="#0f62fe" stroke-width="2"/>
+  <text x="137" y="158" text-anchor="middle" font-size="30">📋</text>
+  <text x="137" y="183" text-anchor="middle" font-size="12" font-weight="700" fill="#0f62fe">Step 1</text>
+  <text x="137" y="200" text-anchor="middle" font-size="11" fill="#161616">Enter Work</text>
+  <text x="137" y="215" text-anchor="middle" font-size="11" fill="#161616">Order Number</text>
+  <text x="137" y="233" text-anchor="middle" font-size="10" fill="#525252">e.g. 6455</text>
+
+  <!-- Arrow 1→2 -->
+  <line x1="215" y1="193" x2="248" y2="193" stroke="#0f62fe" stroke-width="2.5"/>
+  <polygon points="253,193 244,189 244,197" fill="#0f62fe"/>
+
+  <!-- ── Step 2 ── -->
+  <rect x="253" y="128" width="155" height="130" rx="12" fill="#ffffff" stroke="#0f62fe" stroke-width="2"/>
+  <text x="330" y="158" text-anchor="middle" font-size="30">🌍</text>
+  <text x="330" y="183" text-anchor="middle" font-size="12" font-weight="700" fill="#0f62fe">Step 2</text>
+  <text x="330" y="200" text-anchor="middle" font-size="11" fill="#161616">Choose</text>
+  <text x="330" y="215" text-anchor="middle" font-size="11" fill="#161616">Language</text>
+  <text x="330" y="233" text-anchor="middle" font-size="10" fill="#525252">English · French · Hindi</text>
+
+  <!-- Arrow 2→3 -->
+  <line x1="408" y1="193" x2="441" y2="193" stroke="#0f62fe" stroke-width="2.5"/>
+  <polygon points="446,193 437,189 437,197" fill="#0f62fe"/>
+
+  <!-- ── Step 3 ── -->
+  <rect x="446" y="128" width="155" height="130" rx="12" fill="#ffffff" stroke="#0f62fe" stroke-width="2"/>
+  <text x="523" y="158" text-anchor="middle" font-size="30">🚀</text>
+  <text x="523" y="183" text-anchor="middle" font-size="12" font-weight="700" fill="#0f62fe">Step 3</text>
+  <text x="523" y="200" text-anchor="middle" font-size="11" fill="#161616">Click Generate</text>
+  <text x="523" y="215" text-anchor="middle" font-size="11" fill="#161616">JHA Report</text>
+  <text x="523" y="233" text-anchor="middle" font-size="10" fill="#525252">One button click</text>
+
+  <!-- Arrow 3→4 -->
+  <line x1="601" y1="193" x2="634" y2="193" stroke="#0f62fe" stroke-width="2.5"/>
+  <polygon points="639,193 630,189 630,197" fill="#0f62fe"/>
+
+  <!-- ── Step 4 — AI ── -->
+  <rect x="639" y="128" width="155" height="130" rx="12" fill="#6929c4"/>
+  <text x="716" y="158" text-anchor="middle" font-size="30">🤖</text>
+  <text x="716" y="183" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Step 4</text>
+  <text x="716" y="200" text-anchor="middle" font-size="11" fill="#e8daff">AI Analyses</text>
+  <text x="716" y="215" text-anchor="middle" font-size="11" fill="#e8daff">the Work Order</text>
+  <text x="716" y="233" text-anchor="middle" font-size="10" fill="#d4bbff">IBM Watsonx.ai</text>
+
+  <!-- Arrow 4→5 -->
+  <line x1="794" y1="193" x2="827" y2="193" stroke="#0f62fe" stroke-width="2.5"/>
+  <polygon points="832,193 823,189 823,197" fill="#0f62fe"/>
+
+  <!-- ── Step 5 — Report ready ── -->
+  <rect x="832" y="128" width="108" height="130" rx="12" fill="#24a148"/>
+  <text x="886" y="158" text-anchor="middle" font-size="30">✅</text>
+  <text x="886" y="183" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Step 5</text>
+  <text x="886" y="200" text-anchor="middle" font-size="11" fill="#defbe6">Report</text>
+  <text x="886" y="215" text-anchor="middle" font-size="11" fill="#defbe6">Ready!</text>
+  <text x="886" y="233" text-anchor="middle" font-size="10" fill="#a7f0ba">~15 seconds</text>
+
+  <!-- ── What's in the report ── -->
+  <rect x="60" y="276" width="880" height="76" rx="10" fill="#ffffff" stroke="#c6c6c6" stroke-width="1.5"/>
+  <text x="500" y="298" text-anchor="middle" font-size="11" font-weight="700" fill="#161616">📄  Your report includes:</text>
+
+  <rect x="80"  y="308" width="148" height="28" rx="6" fill="#fff1f1" stroke="#da1e28" stroke-width="1"/>
+  <text x="154" y="327" text-anchor="middle" font-size="10" fill="#da1e28">🔴  Identified Hazards</text>
+
+  <rect x="242" y="308" width="148" height="28" rx="6" fill="#fff8e1" stroke="#f1c21b" stroke-width="1"/>
+  <text x="316" y="327" text-anchor="middle" font-size="10" fill="#8e6a00">🟡  Risk Levels (H/M/L)</text>
+
+  <rect x="404" y="308" width="148" height="28" rx="6" fill="#edf5ff" stroke="#0f62fe" stroke-width="1"/>
+  <text x="478" y="327" text-anchor="middle" font-size="10" fill="#0043ce">🔵  Safety Controls</text>
+
+  <rect x="566" y="308" width="148" height="28" rx="6" fill="#defbe6" stroke="#24a148" stroke-width="1"/>
+  <text x="640" y="327" text-anchor="middle" font-size="10" fill="#0e6027">🟢  Required PPE</text>
+
+  <rect x="728" y="308" width="192" height="28" rx="6" fill="#f6f2ff" stroke="#6929c4" stroke-width="1"/>
+  <text x="824" y="327" text-anchor="middle" font-size="10" fill="#6929c4">📞  Emergency Contacts</text>
+
+  <!-- ── Download buttons ── -->
+  <rect x="280" y="368" width="180" height="40" rx="20" fill="#0f62fe"/>
+  <text x="370" y="393" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">⬇  Download PDF</text>
+
+  <rect x="540" y="368" width="180" height="40" rx="20" fill="#ffffff" stroke="#0f62fe" stroke-width="2"/>
+  <text x="630" y="393" text-anchor="middle" font-size="12" font-weight="700" fill="#0f62fe">👁  View PDF</text>
+
+  <!-- ═══════════════════════════════════════
+       DIVIDER
+  ═══════════════════════════════════════ -->
+  <line x1="60" y1="424" x2="940" y2="424" stroke="#c6c6c6" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- ═══════════════════════════════════════
+       FLOW B — PREVIOUS REPORTS
+  ═══════════════════════════════════════ -->
+
+  <rect x="60" y="432" width="880" height="28" rx="14" fill="#393939"/>
+  <text x="500" y="451" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff" letter-spacing="1">VIEW PREVIOUS REPORTS</text>
+
+  <!-- Step B1 -->
+  <rect x="100" y="474" width="160" height="110" rx="12" fill="#ffffff" stroke="#393939" stroke-width="2"/>
+  <text x="180" y="504" text-anchor="middle" font-size="28">🕐</text>
+  <text x="180" y="528" text-anchor="middle" font-size="11" font-weight="700" fill="#393939">Open History</text>
+  <text x="180" y="544" text-anchor="middle" font-size="10" fill="#525252">Click "View Previous</text>
+  <text x="180" y="558" text-anchor="middle" font-size="10" fill="#525252">Reports" in sidebar</text>
+
+  <line x1="260" y1="529" x2="300" y2="529" stroke="#393939" stroke-width="2"/>
+  <polygon points="305,529 296,525 296,533" fill="#393939"/>
+
+  <!-- Step B2 -->
+  <rect x="305" y="474" width="160" height="110" rx="12" fill="#ffffff" stroke="#393939" stroke-width="2"/>
+  <text x="385" y="504" text-anchor="middle" font-size="28">📊</text>
+  <text x="385" y="528" text-anchor="middle" font-size="11" font-weight="700" fill="#393939">See All Reports</text>
+  <text x="385" y="544" text-anchor="middle" font-size="10" fill="#525252">Sorted newest first</text>
+  <text x="385" y="558" text-anchor="middle" font-size="10" fill="#525252">Status · Risk badges</text>
+
+  <line x1="465" y1="529" x2="505" y2="529" stroke="#393939" stroke-width="2"/>
+  <polygon points="510,529 501,525 501,533" fill="#393939"/>
+
+  <!-- Step B3 -->
+  <rect x="510" y="474" width="160" height="110" rx="12" fill="#ffffff" stroke="#393939" stroke-width="2"/>
+  <text x="590" y="504" text-anchor="middle" font-size="28">🔍</text>
+  <text x="590" y="528" text-anchor="middle" font-size="11" font-weight="700" fill="#393939">Search &amp; Filter</text>
+  <text x="590" y="544" text-anchor="middle" font-size="10" fill="#525252">Find by Work Order</text>
+  <text x="590" y="558" text-anchor="middle" font-size="10" fill="#525252">or Report ID</text>
+
+  <line x1="670" y1="529" x2="710" y2="529" stroke="#393939" stroke-width="2"/>
+  <polygon points="715,529 706,525 706,533" fill="#393939"/>
+
+  <!-- Step B4 -->
+  <rect x="715" y="474" width="225" height="110" rx="12" fill="#24a148"/>
+  <text x="827" y="504" text-anchor="middle" font-size="28">📥</text>
+  <text x="827" y="528" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">Download or View</text>
+  <text x="827" y="544" text-anchor="middle" font-size="10" fill="#defbe6">View PDF in browser</text>
+  <text x="827" y="558" text-anchor="middle" font-size="10" fill="#defbe6">Download for any report</text>
+
+  <!-- Footer -->
+  <line x1="60" y1="600" x2="940" y2="600" stroke="#c6c6c6" stroke-width="1"/>
+  <text x="500" y="615" text-anchor="middle" font-size="9" fill="#8d8d8d">Powered by IBM Watsonx.ai · IBM Maximo · IBM Cloudant · Built with IBM BoB</text>
+
+</svg>
