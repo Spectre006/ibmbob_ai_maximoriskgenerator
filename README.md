@@ -6,6 +6,23 @@ An AI-enabled Risk Assessment Generator that evaluates IBM Maximo work orders an
 
 ---
 
+## 🎬 Demo
+
+<video src="demo/Demo_AI%20Powered%20Risk%20Assesement%20Generator_IBM%20BOB.mp4" controls width="100%">
+  <a href="demo/Demo_AI%20Powered%20Risk%20Assesement%20Generator_IBM%20BOB.mp4">▶ Download and watch the demo</a>
+</video>
+
+> **Can't see the player?** [▶ Click here to download and watch the demo](demo/Demo_AI%20Powered%20Risk%20Assesement%20Generator_IBM%20BOB.mp4)
+
+The demo covers:
+- Entering a Maximo work order number and selecting a language
+- Real-time AI analysis by IBM Watsonx.ai
+- Viewing the generated JHA report with hazards and risk levels
+- Downloading the multilingual PDF report
+- Browsing and searching previous reports
+
+---
+
 ## 🎯 Use Case
 
 Maximo technicians often lack the time or expertise to prepare JHA reports before starting work, which can create serious safety risks. This tool automatically generates comprehensive, multilingual JHA reports from any Maximo work order using IBM Watsonx.ai — reducing preparation time from hours to seconds.
@@ -44,6 +61,8 @@ Maximo technicians often lack the time or expertise to prepare JHA reports befor
 
 ## 🏗️ Architecture
 
+![Architecture Diagram](architecture_diagram.svg)
+
 ```
 Browser (IBM Carbon UI)
         ↓
@@ -54,7 +73,7 @@ FastAPI Application
 │  (Work Orders)│  (AI Analysis)   │  (Storage)     │
 └───────────────┴──────────────────┴────────────────┘
         ↓
-  ReportLab PDF  /  python-docx  /  Jinja2 HTML
+  ReportLab PDF  /  Jinja2 HTML
 ```
 
 ---
@@ -119,6 +138,8 @@ http://localhost:8000
 ---
 
 ## 📖 Usage
+
+![User Flow Diagram](user_flow_diagram.svg)
 
 ### Generating a Report
 
