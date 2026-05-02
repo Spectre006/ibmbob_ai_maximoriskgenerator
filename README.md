@@ -46,19 +46,6 @@ Maximo technicians often lack the time or expertise to prepare JHA reports befor
 
 ![Architecture](demo/architecture_diagram.svg)
 
-```
-Browser (IBM Carbon UI)
-        ↓
-FastAPI Application
-        ↓
-┌───────────────┬──────────────────┬────────────────┐
-│  Maximo REST  │  IBM Watsonx.ai  │  IBM Cloudant  │
-│  (Work Orders)│  (AI Analysis)   │  (Storage)     │
-└───────────────┴──────────────────┴────────────────┘
-        ↓
-  ReportLab PDF  /  Jinja2 HTML
-```
-
 ---
 
 ## 🚀 Quick Start
